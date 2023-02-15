@@ -9,5 +9,8 @@ urlpatterns = [
 
     # post paths
     path('authors/<str:author_id>/posts/', views.posts, name='posts endpoint'),
-    path('authors/<str:author_id>/posts/<str:post_id>/', views.post, name="post endpoint")
+    path('authors/<str:author_id>/posts/<str:post_id>/', views.post, name="post endpoint"),
+
+    # comment paths
+    path('authors/<str:author_id>/posts/<str:post_id>/comments', views.comments, name="comment endpoint")
 ]

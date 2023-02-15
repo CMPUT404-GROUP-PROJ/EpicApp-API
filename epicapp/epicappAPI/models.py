@@ -56,10 +56,23 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    @property
+    def type(self):
+        return 'comment'
+    
+    class ContentType(models.TextChoices): 
+        textMarkdown = 'text/markdown'
+        textPlain = 'text/plain'
+        # various image types
+        appImg = 'application/base64'
+        pngImg = 'image/png;base64'
+        jpegImg = 'image/jpeg;base64'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     comment = models.TextField(max_length=500)
-    date = models.DateField(auto_now_add=True)
-    comment = models.ForeignKey(Post, on_delete=models.CASCADE)
+    published = models.DateField(auto_now_add=True)
+    contentType = models.CharField(max_length=18, choices=ContentType.choices)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 # todo:
